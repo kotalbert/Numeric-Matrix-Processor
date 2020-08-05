@@ -11,6 +11,7 @@ class MatrixTest {
     public void emptyMatrixConstructor() {
         final int n = 5;
         final int m = 3;
+
         Matrix mx = new Matrix(n, m);
         assertEquals(mx.n, n);
         assertEquals(mx.m, m);
@@ -18,9 +19,7 @@ class MatrixTest {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 assertEquals(0, mx.getMatrix()[i][j]);
-
             }
-
         }
     }
 
@@ -40,12 +39,44 @@ class MatrixTest {
         assertIllegalDimensions(0, 0);
     }
 
-
     /**
      * Will not fail only if illegal dimensions.
      */
     private void assertIllegalDimensions(int n, int m) {
         assertThrows(IllegalArgumentException.class, () -> new Matrix(n, m));
+    }
+
+    @Test
+    public void setElement() {
+        Matrix mx = new Matrix(4, 5);
+        for (int i = 0; i < mx.length; i++) {
+            mx.setElement(i, i);
+        }
+        for (int i = 0; i < mx.length; i++) {
+            assertEquals(mx.getElement(i), i);
+        }
+
+    }
+
+    @Test
+    public void matrixFromArrayConstructor() {
+        final int n = 3;
+        final int m = 3;
+
+        int[] arrOk = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+        Matrix mx = new Matrix(n, m, arrOk);
+        int[][] rawMatrix = mx.getMatrix();
+        int k = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                assertEquals(rawMatrix[i][j], arrOk[k++]);
+            }
+        }
+
+        assertThrows(IllegalArgumentException.class, () -> new Matrix(n, m, new int[n * m - 1]));
+
+
     }
 
 }
