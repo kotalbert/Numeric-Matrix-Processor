@@ -25,6 +25,14 @@ class MatrixTest {
     }
 
     @Test
+    public void getElementsOfZeroMatrix() {
+        Matrix mx = new Matrix(3, 3);
+        for (int element : mx.getElements()) {
+            assertEquals(0, element);
+        }
+    }
+
+    @Test
     public void illegalDimensionValidation() {
         assertIllegalDimensions(-1, 1);
         assertIllegalDimensions(1, -1);
