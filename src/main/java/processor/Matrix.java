@@ -19,6 +19,13 @@ public class Matrix {
         this.matrix = new int[n][m];
     }
 
+    /**
+     * Matrix getter.
+     * @return copy of matrix
+     */
+    public int[][] getMatrix() {
+        return matrix.clone();
+    }
 
     /**
      * Check if legal matrix dimensions.
