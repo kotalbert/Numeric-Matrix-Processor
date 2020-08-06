@@ -50,8 +50,20 @@ public class MatrixFactory {
      * @return matrix with dimensions and elements read from input stream
      */
     public static Matrix create(InputStream inputStream) throws IndexOutOfBoundsException {
-        // todo: guard against dimensions and data mismatch
-        throw new UnsupportedOperationException();
+        Scanner scanner = new Scanner(inputStream);
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
+
+        // fixme: duplicate code in  create(int n, int m, InputStream inputStream)
+        int[] elements = new int[n * m];
+        for (int i = 0; i < n * m; i++) {
+            try {
+                elements[i] = scanner.nextInt();
+            } catch (NoSuchElementException e) {
+                throw new IllegalArgumentException("Provided source has less elements value than matrix length: " + i);
+            }
+        }
+        return create(n, m, elements);
     }
 
     /**
@@ -67,7 +79,6 @@ public class MatrixFactory {
         Scanner scanner = new Scanner(inputStream);
         int[] elements = new int[n * m];
         for (int i = 0; i < n * m; i++) {
-            // todo: guard against dimensions and data mismatch
             try {
                 elements[i] = scanner.nextInt();
             } catch (NoSuchElementException e) {
@@ -79,15 +90,15 @@ public class MatrixFactory {
 
     /**
      * Create matrix from file.
-     *
+     * <p>
      * Assuming first two integers in file are dimensions.
      *
-     * @param File file with matrix dimensions and elements
-     * @throws IndexOutOfBoundsException when matrix size gt elements number in file
+     * @param file file with matrix dimensions and elements
      * @return matrix with dimensions and elements read from file
+     * @throws IndexOutOfBoundsException when matrix size gt elements number in file
      */
-    public static Matrix create(File File) throws IndexOutOfBoundsException {
-        throw new UnsupportedOperationException();
+    public static Matrix create(File file) throws IndexOutOfBoundsException, FileNotFoundException {
+        return create(new FileInputStream(file));
     }
 
     /**

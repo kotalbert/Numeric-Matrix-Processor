@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -78,16 +77,16 @@ class MatrixFactoryTest {
             "12, 4, 5"
     })
     @DisplayName("Matrices should be created based on dimensions parameters and values read from file.")
-    void createFromDimensionsAndFile(int testFilesIndex, int n, int m) throws FileNotFoundException {
+    void createFromDimensionsAndFile(int inputFileIndex, int n, int m) throws FileNotFoundException {
 
-        int outputFileIndex = testFilesIndex % 10;
-        File inputFile = getFileFromResources(String.format("creation/input_%d.txt", testFilesIndex));
-        File outputFile = getFileFromResources(String.format("creation/output_%d.txt", outputFileIndex));
+        int outputFileIndex = inputFileIndex % 10;
+        File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
+        File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
 
-        Matrix imx1 = MatrixFactory.create(n, m, inputFile);
-        Matrix imx2 = MatrixFactory.create(n, m, outputFile);
+        Matrix mxIn = MatrixFactory.create(n, m, inputFile);
+        Matrix mxOut = MatrixFactory.create(n, m, outputFile);
 
-        assertEquals(imx1, imx2);
+        assertEquals(mxOut, mxIn);
 
         // test guard against dimension mismatch
         assertThrows(IllegalArgumentException.class, () -> MatrixFactory.create(n + 1, m, inputFile));
@@ -99,9 +98,24 @@ class MatrixFactoryTest {
 
     }
 
+    private File getFileFromResources(int inputFileIndex, String formatString) {
+        return getFileFromResources(String.format(formatString, inputFileIndex));
+    }
+
     @ParameterizedTest
-    @ValueSource(ints = {21, 22})
-    void createFromFile(int testFileIndex) {
+    @CsvSource({
+            "21, 4, 5",
+            "22, 4, 5"
+    })
+    void createFromFile(int inputFileIndex, int n, int m) throws FileNotFoundException {
+        int outputFileIndex = inputFileIndex % 10;
+        File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
+        File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
+
+        Matrix mxIn = MatrixFactory.create(inputFile);
+        Matrix mxOut = MatrixFactory.create(n, m, outputFile);
+
+        assertEquals(mxOut, mxIn);
 
     }
 
