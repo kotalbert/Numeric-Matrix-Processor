@@ -31,7 +31,8 @@ public class Matrix {
     public Matrix(int n, int m, int[] elements) {
         this(n, m);
         if (elements.length != n * m)
-            throw new IllegalArgumentException(String.format("Elements count not matching dimensions: %d x %d != %d", n, m, elements.length));
+            throw new IllegalArgumentException(
+                    String.format("Elements count not matching dimensions: %d x %d != %d", n, m, elements.length));
         for (int i = 0; i < elements.length; i++) {
             setElement(i, elements[i]);
 
@@ -47,7 +48,6 @@ public class Matrix {
     public int[][] getMatrix() {
         return matrix.clone();
     }
-
 
     /**
      * Get matrix elements.
@@ -127,12 +127,12 @@ public class Matrix {
 
         if (this.n != other.n || this.m != other.m) return false;
         for (int i = 0; i < n * m; i++) {
-           if (this.getElements()[i] != other.getElements()[i])
-               return false;
+            if (this.getElements()[i] != other.getElements()[i])
+                return false;
         }
         return true;
 
-        }
-
     }
+
+}
 

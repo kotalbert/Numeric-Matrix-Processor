@@ -1,7 +1,11 @@
 package processor;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * Factory class for creating matrices.
@@ -60,8 +64,17 @@ public class MatrixFactory {
      * @return matrix with n x m dimensions and elements read from input stream
      */
     public static Matrix create(int n, int m, InputStream inputStream) {
-        // todo: guard against dimensions and data mismatch
-        throw new UnsupportedOperationException();
+        Scanner scanner = new Scanner(inputStream);
+        int[] elements = new int[n * m];
+        for (int i = 0; i < n * m; i++) {
+            // todo: guard against dimensions and data mismatch
+            try {
+                elements[i] = scanner.nextInt();
+            } catch (NoSuchElementException e) {
+                throw new IllegalArgumentException("Provided source has less elements value than matrix length: " + i);
+            }
+        }
+        return create(n, m, elements);
     }
 
     /**
@@ -77,16 +90,18 @@ public class MatrixFactory {
         throw new UnsupportedOperationException();
     }
 
-    /** Crate n x m matrix from file.
+    /**
+     * Crate n x m matrix from file.
      *
-     * @param n row number
-     * @param m column number
+     * @param n    row number
+     * @param m    column number
      * @param file file to read data
-     * @throws IndexOutOfBoundsException when matrix size gt elements number in file
      * @return matrix with n x m dimensions and elements read from file
+     * @throws IndexOutOfBoundsException when matrix size gt elements number in file
      */
-    public static Matrix create(int n, int m, File file) throws IndexOutOfBoundsException {
-        throw new UnsupportedOperationException();
+    public static Matrix create(int n, int m, File file) throws IndexOutOfBoundsException, FileNotFoundException {
+        return create(n, m, new FileInputStream(file));
+
     }
 
 
