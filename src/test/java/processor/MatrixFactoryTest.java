@@ -58,6 +58,20 @@ class MatrixFactoryTest {
     void createFromInputStream() {
     }
 
+    /**
+     * Helper to get files from resources.
+     *
+     * @param resourceName
+     * @return
+     */
+    private File getFileFromResources(String resourceName) {
+        URL fileUrl = getClass().getClassLoader().getResource(resourceName);
+        assert fileUrl != null;
+        File file = new File(fileUrl.getPath());
+        assertTrue(file.exists());
+        return file;
+    }
+
     @ParameterizedTest
     @CsvSource({
             "1, 4, 5",
@@ -66,23 +80,11 @@ class MatrixFactoryTest {
     @DisplayName("Matrices should be created based on dimensions parameters and values read from file.")
     void createFromFile(int testFilesIndex, int n, int m) throws FileNotFoundException {
 
-        // test for reading declared array
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL inputUrl = classLoader.getResource(String.format("creation/input_%d.txt", testFilesIndex));
-        URL outputUrl = classLoader.getResource(String.format("creation/input_%d.txt", testFilesIndex));
-
-        assert inputUrl != null;
-        File inputFile = new File(inputUrl.getPath());
-
-        assert outputUrl != null;
-        File outputFile = new File(outputUrl.getPath());
-
-        assertTrue(inputFile.exists());
-        assertTrue(outputFile.exists());
+        File inputFile = getFileFromResources(String.format("creation/input_%d.txt", testFilesIndex));
+        File outputFile = getFileFromResources(String.format("creation/input_%d.txt", testFilesIndex));
 
         Matrix imx1 = MatrixFactory.create(n, m, inputFile);
         Matrix imx2 = MatrixFactory.create(n, m, outputFile);
-
 
         assertEquals(imx1, imx2);
 
@@ -91,6 +93,7 @@ class MatrixFactoryTest {
         assertThrows(IllegalArgumentException.class, () -> MatrixFactory.create(n, m + 1, inputFile));
         assertThrows(IllegalArgumentException.class, () -> MatrixFactory.create(n + 1, m + 1, inputFile));
 
+        // test if matrix is created using smaller matrix size
         assertEquals((n - 1) * (m - 1), MatrixFactory.create(n - 1, m - 1, inputFile).length);
 
     }
