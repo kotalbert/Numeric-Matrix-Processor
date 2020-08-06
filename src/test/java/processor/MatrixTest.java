@@ -2,10 +2,34 @@ package processor;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MatrixTest {
+
+    @Test
+    public void equals() {
+        final int n = 3;
+        final int[] elements = new int[n * n];
+
+        for (int i = 0; i < n * n; i++) {
+            elements[i] = i;
+        }
+
+        // testing empty matrices
+        Matrix mx1 = new Matrix(n, n);
+        Matrix mx2 = new Matrix(n, n);
+        assertEquals(mx1, mx2);
+
+        Matrix mx3 = new Matrix(n, n + 1);
+        assertNotEquals(mx1, mx3);
+
+        // testing matrices with element sequence
+        Matrix mx11 = new Matrix(n, n, elements);
+        Matrix mx12 = new Matrix(n, n, elements);
+
+        assertEquals(mx11, mx12);
+
+    }
 
     @Test
     public void emptyMatrixConstructor() {

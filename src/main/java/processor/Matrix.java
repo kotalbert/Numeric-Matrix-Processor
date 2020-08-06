@@ -119,4 +119,20 @@ public class Matrix {
 
     }
 
-}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!getClass().isAssignableFrom(obj.getClass())) return false;
+        final Matrix other = (Matrix) obj;
+
+        if (this.n != other.n || this.m != other.m) return false;
+        for (int i = 0; i < n * m; i++) {
+           if (this.getElements()[i] != other.getElements()[i])
+               return false;
+        }
+        return true;
+
+        }
+
+    }
+
