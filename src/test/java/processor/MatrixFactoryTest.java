@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -51,7 +52,6 @@ class MatrixFactoryTest {
         Matrix mx11 = MatrixFactory.create(n, m, elements);
         Matrix mx12 = new Matrix(n, m, elements);
         assertEquals(mx11, mx12);
-        fail();
     }
 
     @Test
@@ -74,14 +74,15 @@ class MatrixFactoryTest {
 
     @ParameterizedTest
     @CsvSource({
-            "1, 4, 5",
-            "2, 4, 5"
+            "11, 4, 5",
+            "12, 4, 5"
     })
     @DisplayName("Matrices should be created based on dimensions parameters and values read from file.")
-    void createFromFile(int testFilesIndex, int n, int m) throws FileNotFoundException {
+    void createFromDimensionsAndFile(int testFilesIndex, int n, int m) throws FileNotFoundException {
 
+        int outputFileIndex = testFilesIndex % 10;
         File inputFile = getFileFromResources(String.format("creation/input_%d.txt", testFilesIndex));
-        File outputFile = getFileFromResources(String.format("creation/input_%d.txt", testFilesIndex));
+        File outputFile = getFileFromResources(String.format("creation/output_%d.txt", outputFileIndex));
 
         Matrix imx1 = MatrixFactory.create(n, m, inputFile);
         Matrix imx2 = MatrixFactory.create(n, m, outputFile);
@@ -95,6 +96,12 @@ class MatrixFactoryTest {
 
         // test if matrix is created using smaller matrix size
         assertEquals((n - 1) * (m - 1), MatrixFactory.create(n - 1, m - 1, inputFile).length);
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {21, 22})
+    void createFromFile(int testFileIndex) {
 
     }
 
