@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static processor.TestUtils.getFileFromResources;
 
 @DisplayName("Matrix Factory class test case")
 class MatrixFactoryTest {
@@ -24,7 +25,7 @@ class MatrixFactoryTest {
 
         Random rand = new Random();
 
-        // basic parameters for testing
+        // fixme: basic parameters for testing, can be moved to before type method
         this.n = 5;
         this.m = 5;
         this.elements = new int[n * m];
@@ -53,8 +54,6 @@ class MatrixFactoryTest {
     }
 
 
-
-
     @ParameterizedTest
     @CsvSource({
             "11, 4, 5",
@@ -80,10 +79,6 @@ class MatrixFactoryTest {
         // test if matrix is created using smaller matrix size
         assertEquals((n - 1) * (m - 1), MatrixFactory.create(n - 1, m - 1, inputFile).length);
 
-    }
-
-    private File getFileFromResources(int inputFileIndex, String formatString) {
-        return TestUtils.getFileFromResources(String.format(formatString, inputFileIndex));
     }
 
     @ParameterizedTest
