@@ -77,8 +77,12 @@ public class Matrix extends AbstractMatrix {
     }
 
     @Override
-    public AbstractMatrix add(AbstractMatrix left, AbstractMatrix right) throws ArithmeticException {
-        return null;
+    protected AbstractMatrix addOther(AbstractMatrix other) {
+        int[] resultElements = new int[this.length];
+        for (int i = 0; i < this.length; i++) {
+           resultElements[i] = this.getElement(i) + other.getElement(i);
+        }
+        return new Matrix(this.n, this.m, resultElements);
     }
 
 

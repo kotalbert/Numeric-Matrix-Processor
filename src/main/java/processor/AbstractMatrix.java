@@ -24,12 +24,14 @@ public abstract class AbstractMatrix {
 
     /**
      * Get representation of matrix as 2d array.
+     *
      * @return
      */
-    public abstract  int[][] getMatrix();
+    public abstract int[][] getMatrix();
 
     /**
      * Get elements as 1d array
+     *
      * @return
      */
     public abstract int[] getElements();
@@ -40,7 +42,7 @@ public abstract class AbstractMatrix {
      * @param index
      * @return
      */
-    public int getElement(int index) {
+    public final int getElement(int index) {
         return getElement(getRow(index), getColumn(index));
     }
 
@@ -50,7 +52,7 @@ public abstract class AbstractMatrix {
      * @param index
      * @param value
      */
-    public void setElement(int index, int value) {
+    public final void setElement(int index, int value) {
         setElement(getRow(index), getColumn(index), value);
     }
 
@@ -83,6 +85,7 @@ public abstract class AbstractMatrix {
     private int getColumn(int index) {
         return index % m;
     }
+
     /**
      * Get element by row and column index.
      *
@@ -93,7 +96,7 @@ public abstract class AbstractMatrix {
     public abstract int getElement(int i, int j);
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (obj == null) return false;
         if (!getClass().isAssignableFrom(obj.getClass())) return false;
         final AbstractMatrix other = (AbstractMatrix) obj;
@@ -106,7 +109,28 @@ public abstract class AbstractMatrix {
         return true;
     }
 
+    private void validateAddition(AbstractMatrix other) {
+        if (this.length != other.length ||
+                        this.n != other.n ||
+                        this.m != other.m) {
+            throw new IllegalArgumentException("Matrices of different dimensions cannot be added.");
+        }
+    }
 
-    public abstract AbstractMatrix add(AbstractMatrix left, AbstractMatrix right) throws ArithmeticException;
+   public final AbstractMatrix add(AbstractMatrix other) {
+        validateAddition(other);
+        return this.addOther(other);
+   }
+
+    protected abstract AbstractMatrix addOther(AbstractMatrix other);
+
+/*
+    protected AbstractMatrix add(AbstractMatrix other) {
+
+       this.add(other);
+    }
+*/
+
+//    public abstract AbstractMatrix add(AbstractMatrix other)  throws IllegalArgumentException;
 
 }
