@@ -35,12 +35,54 @@ public abstract class AbstractMatrix {
     public abstract int[] getElements();
 
     /**
-     * Get element based on sequential index in matrix.
+     * Get n-th element of matrix, row first indexed.
+     *
      * @param index
      * @return
      */
-    public abstract int getElement(int index);
+    public int getElement(int index) {
+        return getElement(getRow(index), getColumn(index));
+    }
 
+    /**
+     * Set n-th element of matrix with value, row first indexed.
+     *
+     * @param index
+     * @param value
+     */
+    public void setElement(int index, int value) {
+        setElement(getRow(index), getColumn(index), value);
+    }
+
+    /**
+     * Set ij-th element of Matrix with value.
+     *
+     * @param i
+     * @param j
+     * @param value
+     */
+    abstract void setElement(int i, int j, int value);
+
+
+    /**
+     * Get row number based on index.
+     *
+     * @param index
+     * @return matrix row number
+     */
+    private int getRow(int index) {
+        return index / m;
+    }
+
+    /**
+     * Get column number based on index.
+     *
+     * @param index
+     * @return matrix column number
+     */
+    private int getColumn(int index) {
+        return index % m;
+    }
     /**
      * Get element by row and column index.
      *
@@ -49,5 +91,22 @@ public abstract class AbstractMatrix {
      * @return
      */
     public abstract int getElement(int i, int j);
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!getClass().isAssignableFrom(obj.getClass())) return false;
+        final AbstractMatrix other = (AbstractMatrix) obj;
+
+        if (this.n != other.n || this.m != other.m) return false;
+        for (int i = 0; i < n * m; i++) {
+            if (this.getElements()[i] != other.getElements()[i])
+                return false;
+        }
+        return true;
+    }
+
+
+    public abstract AbstractMatrix add(AbstractMatrix left, AbstractMatrix right) throws ArithmeticException;
 
 }

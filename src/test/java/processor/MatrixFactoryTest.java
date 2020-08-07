@@ -41,7 +41,7 @@ class MatrixFactoryTest {
     @Test
     @DisplayName("Empty Matrix should be created for given dimensions.")
     void createEmpty() {
-        Matrix mx1 = MatrixFactory.create(n, m);
+        AbstractMatrix mx1 = MatrixFactory.create(n, m);
         Matrix mx2 = new Matrix(n, m);
         assertEquals(mx1, mx2);
     }
@@ -49,14 +49,11 @@ class MatrixFactoryTest {
     @Test
     @DisplayName("Matrices should be initialized from dimensions and 1d vale array")
     void createFromArray() {
-        Matrix mx11 = MatrixFactory.create(n, m, elements);
+        AbstractMatrix mx11 = MatrixFactory.create(n, m, elements);
         Matrix mx12 = new Matrix(n, m, elements);
         assertEquals(mx11, mx12);
     }
 
-    @Test
-    void createFromInputStream() {
-    }
 
     /**
      * Helper to get files from resources.
@@ -84,8 +81,8 @@ class MatrixFactoryTest {
         File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
         File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
 
-        Matrix mxIn = MatrixFactory.create(n, m, inputFile);
-        Matrix mxOut = MatrixFactory.create(n, m, outputFile);
+        AbstractMatrix mxIn = MatrixFactory.create(n, m, inputFile);
+        AbstractMatrix mxOut = MatrixFactory.create(n, m, outputFile);
 
         assertEquals(mxOut, mxIn);
 
@@ -113,8 +110,8 @@ class MatrixFactoryTest {
         File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
         File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
 
-        Matrix mxIn = MatrixFactory.create(inputFile);
-        Matrix mxOut = MatrixFactory.create(n, m, outputFile);
+        AbstractMatrix mxIn = MatrixFactory.create(inputFile);
+        AbstractMatrix mxOut = MatrixFactory.create(n, m, outputFile);
 
         assertEquals(mxOut, mxIn);
 

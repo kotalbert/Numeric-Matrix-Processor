@@ -1,6 +1,9 @@
 package processor;
 
 
+/**
+ * Basic matrix implementation.
+ */
 public class Matrix extends AbstractMatrix {
     private final int[][] matrix;
 
@@ -62,28 +65,10 @@ public class Matrix extends AbstractMatrix {
         return elements;
     }
 
-    /**
-     * Put scalar value into matrix.
-     *
-     * @param index 0 based index of matrix element
-     * @param value value to put into matrix
-     */
-    public void setElement(int index, int value) {
-        int j = getColumn(index);
-        int i = getRow(index);
-        matrix[i][j] = value;
-    }
 
-    /**
-     * Get matrix element based on index.
-     *
-     * @param index
-     * @return element value.
-     */
-    public int getElement(int index) {
-        int i = getRow(index);
-        int j = getColumn(index);
-        return matrix[i][j];
+    @Override
+    void setElement(int i, int j, int value) {
+        matrix[i][j] = value;
     }
 
     @Override
@@ -91,41 +76,11 @@ public class Matrix extends AbstractMatrix {
         return matrix[i][j];
     }
 
-    /**
-     * Get row number based on index.
-     *
-     * @param index
-     * @return matrix row number
-     */
-    private int getRow(int index) {
-        return index / m;
-    }
-
-    /**
-     * Get column number based on index.
-     *
-     * @param index
-     * @return matrix column number
-     */
-    private int getColumn(int index) {
-        return index % m;
-    }
-
-
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) return false;
-        if (!getClass().isAssignableFrom(obj.getClass())) return false;
-        final Matrix other = (Matrix) obj;
-
-        if (this.n != other.n || this.m != other.m) return false;
-        for (int i = 0; i < n * m; i++) {
-            if (this.getElements()[i] != other.getElements()[i])
-                return false;
-        }
-        return true;
-
+    public AbstractMatrix add(AbstractMatrix left, AbstractMatrix right) throws ArithmeticException {
+        return null;
     }
+
 
 }
 

@@ -15,7 +15,7 @@ import java.io.InputStream;
  */
 public class InputStreamCopier {
 
-    ByteArrayOutputStream byteArrayOutputStream;
+    private final ByteArrayOutputStream byteArrayOutputStream;
 
     public InputStreamCopier(InputStream inputStream) throws IOException {
         byteArrayOutputStream = new ByteArrayOutputStream();
