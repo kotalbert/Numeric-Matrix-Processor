@@ -8,14 +8,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Matrix Factory class test case")
 class MatrixFactoryTest {
-
 
     private final int n;
     private final int m;
@@ -55,19 +53,7 @@ class MatrixFactoryTest {
     }
 
 
-    /**
-     * Helper to get files from resources.
-     *
-     * @param resourceName
-     * @return
-     */
-    private File getFileFromResources(String resourceName) {
-        URL fileUrl = getClass().getClassLoader().getResource(resourceName);
-        assert fileUrl != null;
-        File file = new File(fileUrl.getPath());
-        assertTrue(file.exists());
-        return file;
-    }
+
 
     @ParameterizedTest
     @CsvSource({
@@ -97,7 +83,7 @@ class MatrixFactoryTest {
     }
 
     private File getFileFromResources(int inputFileIndex, String formatString) {
-        return getFileFromResources(String.format(formatString, inputFileIndex));
+        return TestUtils.getFileFromResources(String.format(formatString, inputFileIndex));
     }
 
     @ParameterizedTest
