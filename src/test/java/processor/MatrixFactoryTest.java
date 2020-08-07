@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 
@@ -107,7 +108,7 @@ class MatrixFactoryTest {
             "21, 4, 5",
             "22, 4, 5"
     })
-    void createFromFile(int inputFileIndex, int n, int m) throws FileNotFoundException {
+    void createFromFile(int inputFileIndex, int n, int m) throws IOException {
         int outputFileIndex = inputFileIndex % 10;
         File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
         File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
