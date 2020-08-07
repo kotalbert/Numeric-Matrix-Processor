@@ -1,10 +1,7 @@
 package processor;
 
 
-public class Matrix {
-    public final int n;
-    public final int m;
-    public final int length;
+public class Matrix extends AbstractMatrix {
     private final int[][] matrix;
 
     /**
@@ -14,10 +11,7 @@ public class Matrix {
      * @param m column number
      */
     public Matrix(int n, int m) {
-        validateDimensions(n, m);
-        this.n = n;
-        this.m = m;
-        length = n * m;
+        super(n, m);
         this.matrix = new int[n][m];
     }
 
@@ -27,10 +21,11 @@ public class Matrix {
      * @param n        row number
      * @param m        column number
      * @param elements array of elements to put in the matrix
+     * @throws IllegalArgumentException when elements length lt matrix size
      */
     public Matrix(int n, int m, int[] elements) {
         this(n, m);
-        if (elements.length != n * m)
+        if (elements.length < n * m)
             throw new IllegalArgumentException(
                     String.format("Elements count not matching dimensions: %d x %d != %d", n, m, elements.length));
         for (int i = 0; i < elements.length; i++) {
@@ -45,6 +40,7 @@ public class Matrix {
      *
      * @return copy of matrix
      */
+    @Override
     public int[][] getMatrix() {
         return matrix.clone();
     }
@@ -54,6 +50,7 @@ public class Matrix {
      *
      * @return row first 1d array of matrix element
      */
+    @Override
     public int[] getElements() {
         int[] elements = new int[n * m];
         int k = 0;
@@ -89,6 +86,11 @@ public class Matrix {
         return matrix[i][j];
     }
 
+    @Override
+    public int getElement(int i, int j) {
+        return matrix[i][j];
+    }
+
     /**
      * Get row number based on index.
      *
@@ -109,15 +111,6 @@ public class Matrix {
         return index % m;
     }
 
-    /**
-     * Check if legal matrix dimensions.
-     */
-    private static void validateDimensions(int n, int m) {
-        if ((n < 0 || m < 0)
-                || (n == 0 && m == 0))
-            throw new IllegalArgumentException(String.format("Illegal dimensions %d x %d", n, m));
-
-    }
 
     @Override
     public boolean equals(Object obj) {
