@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static processor.TestUtils.getFileFromResources;
 
 @DisplayName("Matrix Factory class test case")
-class MatrixFactoryTest {
+class BasicMatrixFactoryTest {
 
     private final int n;
     private final int m;
     private final int[] elements;
 
 
-    MatrixFactoryTest() {
+    BasicMatrixFactoryTest() {
 
         Random rand = new Random();
 
@@ -40,16 +40,16 @@ class MatrixFactoryTest {
     @Test
     @DisplayName("Empty Matrix should be created for given dimensions.")
     void createEmpty() {
-        AbstractMatrix mx1 = MatrixFactory.create(n, m);
-        Matrix mx2 = new Matrix(n, m);
+        Matrix mx1 = MatrixFactory.create(n, m);
+        BasicMatrix mx2 = new BasicMatrix(n, m);
         assertEquals(mx1, mx2);
     }
 
     @Test
     @DisplayName("Matrices should be initialized from dimensions and 1d vale array")
     void createFromArray() {
-        AbstractMatrix mx11 = MatrixFactory.create(n, m, elements);
-        Matrix mx12 = new Matrix(n, m, elements);
+        Matrix mx11 = MatrixFactory.create(n, m, elements);
+        BasicMatrix mx12 = new BasicMatrix(n, m, elements);
         assertEquals(mx11, mx12);
     }
 
@@ -66,8 +66,8 @@ class MatrixFactoryTest {
         File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
         File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
 
-        AbstractMatrix mxIn = MatrixFactory.create(n, m, inputFile);
-        AbstractMatrix mxOut = MatrixFactory.create(n, m, outputFile);
+        Matrix mxIn = MatrixFactory.create(n, m, inputFile);
+        Matrix mxOut = MatrixFactory.create(n, m, outputFile);
 
         assertEquals(mxOut, mxIn);
 
@@ -91,8 +91,8 @@ class MatrixFactoryTest {
         File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
         File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
 
-        AbstractMatrix mxIn = MatrixFactory.create(inputFile);
-        AbstractMatrix mxOut = MatrixFactory.create(n, m, outputFile);
+        Matrix mxIn = MatrixFactory.create(inputFile);
+        Matrix mxOut = MatrixFactory.create(n, m, outputFile);
 
         assertEquals(mxOut, mxIn);
 

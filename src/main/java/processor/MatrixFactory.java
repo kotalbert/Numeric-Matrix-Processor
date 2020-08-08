@@ -20,8 +20,8 @@ public class MatrixFactory {
      * @param m column number
      * @return empty matrix
      */
-    public static AbstractMatrix create(int n, int m) {
-        return new Matrix(n, m);
+    public static Matrix create(int n, int m) {
+        return new BasicMatrix(n, m);
     }
 
 
@@ -33,8 +33,8 @@ public class MatrixFactory {
      * @param elements element array
      * @return matrix with elements put in row first order
      */
-    public static AbstractMatrix create(int n, int m, int[] elements) {
-        return new Matrix(n, m, elements);
+    public static Matrix create(int n, int m, int[] elements) {
+        return new BasicMatrix(n, m, elements);
     }
 
     /**
@@ -46,7 +46,7 @@ public class MatrixFactory {
      * @return matrix with dimensions and elements read from input stream
      * @throws IndexOutOfBoundsException when matrix size gt elements number in input stream
      */
-    public static AbstractMatrix create(InputStream inputStream) throws IndexOutOfBoundsException, IOException {
+    public static Matrix create(InputStream inputStream) throws IndexOutOfBoundsException, IOException {
 
         InputStreamCopier inputStreamCopier = new InputStreamCopier(inputStream);
 
@@ -71,7 +71,7 @@ public class MatrixFactory {
      * @return matrix with n x m dimensions and elements read from input stream
      * @throws IndexOutOfBoundsException when matrix size gt elements in file
      */
-    public static AbstractMatrix create(int n, int m, InputStream inputStream) {
+    public static Matrix create(int n, int m, InputStream inputStream) {
         return create(n, m, inputStream, false);
     }
     /**
@@ -86,7 +86,7 @@ public class MatrixFactory {
      * @return matrix with n x m dimensions and elements read from input stream
      * @throws IndexOutOfBoundsException when matrix size gt elements in file
      */
-    public static AbstractMatrix create(int n, int m, InputStream inputStream, boolean skipDimensions) {
+    public static Matrix create(int n, int m, InputStream inputStream, boolean skipDimensions) {
         Scanner scanner = new Scanner(inputStream);
         if (skipDimensions) {
             scanner.nextInt();
@@ -112,7 +112,7 @@ public class MatrixFactory {
      * @return matrix with dimensions and elements read from file
      * @throws IndexOutOfBoundsException when matrix size gt elements number in file
      */
-    public static AbstractMatrix create(File file) throws IndexOutOfBoundsException, IOException {
+    public static Matrix create(File file) throws IndexOutOfBoundsException, IOException {
         return create(new FileInputStream(file));
     }
 
@@ -125,7 +125,7 @@ public class MatrixFactory {
      * @return matrix with n x m dimensions and elements read from file
      * @throws IndexOutOfBoundsException when matrix size gt elements number in file
      */
-    public static AbstractMatrix create(int n, int m, File file) throws IndexOutOfBoundsException, FileNotFoundException {
+    public static Matrix create(int n, int m, File file) throws IndexOutOfBoundsException, FileNotFoundException {
         return create(n, m, new FileInputStream(file));
 
     }

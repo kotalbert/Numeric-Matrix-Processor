@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MatrixTest {
+class BasicMatrixTest {
 
     @Test
     public void equals() {
@@ -16,16 +16,16 @@ class MatrixTest {
         }
 
         // testing empty matrices
-        Matrix mx1 = new Matrix(n, n);
-        Matrix mx2 = new Matrix(n, n);
+        BasicMatrix mx1 = new BasicMatrix(n, n);
+        BasicMatrix mx2 = new BasicMatrix(n, n);
         assertEquals(mx1, mx2);
 
-        Matrix mx3 = new Matrix(n, n + 1);
+        BasicMatrix mx3 = new BasicMatrix(n, n + 1);
         assertNotEquals(mx1, mx3);
 
         // testing matrices with element sequence
-        Matrix mx11 = new Matrix(n, n, elements);
-        Matrix mx12 = new Matrix(n, n, elements);
+        BasicMatrix mx11 = new BasicMatrix(n, n, elements);
+        BasicMatrix mx12 = new BasicMatrix(n, n, elements);
 
         assertEquals(mx11, mx12);
 
@@ -36,7 +36,7 @@ class MatrixTest {
         final int n = 5;
         final int m = 3;
 
-        Matrix mx = new Matrix(n, m);
+        BasicMatrix mx = new BasicMatrix(n, m);
         assertEquals(mx.n, n);
         assertEquals(mx.m, m);
 
@@ -49,7 +49,7 @@ class MatrixTest {
 
     @Test
     public void getElementsOfZeroMatrix() {
-        Matrix mx = new Matrix(3, 3);
+        BasicMatrix mx = new BasicMatrix(3, 3);
         for (int element : mx.getElements()) {
             assertEquals(0, element);
         }
@@ -67,12 +67,12 @@ class MatrixTest {
      * Will not fail only if illegal dimensions.
      */
     private void assertIllegalDimensions(int n, int m) {
-        assertThrows(IllegalArgumentException.class, () -> new Matrix(n, m));
+        assertThrows(IllegalArgumentException.class, () -> new BasicMatrix(n, m));
     }
 
     @Test
     public void setElement() {
-        Matrix mx = new Matrix(4, 5);
+        BasicMatrix mx = new BasicMatrix(4, 5);
         for (int i = 0; i < mx.length; i++) {
             mx.setElement(i, i);
         }
@@ -88,7 +88,7 @@ class MatrixTest {
         final int m = 3;
 
         int[] arrOk = {0, 1, 2, 3, 4, 5, 6, 7, 8};
-        Matrix mx = new Matrix(n, m, arrOk);
+        BasicMatrix mx = new BasicMatrix(n, m, arrOk);
         int[][] rawMatrix = mx.getMatrix();
         int k = 0;
 
@@ -98,7 +98,7 @@ class MatrixTest {
             }
         }
 
-        assertThrows(IllegalArgumentException.class, () -> new Matrix(n, m, new int[n * m - 1]));
+        assertThrows(IllegalArgumentException.class, () -> new BasicMatrix(n, m, new int[n * m - 1]));
 
 
     }

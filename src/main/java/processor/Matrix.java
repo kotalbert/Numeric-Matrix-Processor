@@ -1,90 +1,145 @@
 package processor;
 
+public abstract class Matrix {
+    public final int n;
+    public final int m;
+    public final int length;
 
-/**
- * Basic matrix implementation.
- */
-public class Matrix extends AbstractMatrix {
-    private final int[][] matrix;
-
-    /**
-     * New empty matrix.
-     *
-     * @param n row number
-     * @param m column number
-     */
-    public Matrix(int n, int m) {
-        super(n, m);
-        this.matrix = new int[n][m];
+    protected Matrix(int n, int m) {
+        validateDimensions(n, m);
+        this.n = n;
+        this.m = m;
+        this.length = n * m;
     }
 
     /**
-     * New matrix from elements array.
-     *
-     * @param n        row number
-     * @param m        column number
-     * @param elements array of elements to put in the matrix
-     * @throws IllegalArgumentException when elements length lt matrix size
+     * Check if legal matrix dimensions.
      */
-    public Matrix(int n, int m, int[] elements) {
-        this(n, m);
-        if (elements.length < n * m)
-            throw new IllegalArgumentException(
-                    String.format("Elements count not matching dimensions: %d x %d != %d", n, m, elements.length));
-        for (int i = 0; i < elements.length; i++) {
-            setElement(i, elements[i]);
+    private static void validateDimensions(int n, int m) {
+        if ((n < 0 || m < 0)
+                || (n == 0 && m == 0))
+            throw new IllegalArgumentException(String.format("Illegal dimensions %d x %d", n, m));
 
+    }
+
+    /**
+     * Get representation of matrix as 2d array.
+     *
+     * @return
+     */
+    public abstract int[][] getMatrix();
+
+    /**
+     * Get elements as 1d array
+     *
+     * @return
+     */
+    public abstract int[] getElements();
+
+    /**
+     * Get n-th element of matrix, row first indexed.
+     *
+     * @param index
+     * @return
+     */
+    public final int getElement(int index) {
+        return getElement(getRow(index), getColumn(index));
+    }
+
+    /**
+     * Set n-th element of matrix with value, row first indexed.
+     *
+     * @param index
+     * @param value
+     */
+    public final void setElement(int index, int value) {
+        setElement(getRow(index), getColumn(index), value);
+    }
+
+    /**
+     * Set ij-th element of Matrix with value.
+     *
+     * @param i
+     * @param j
+     * @param value
+     */
+    abstract void setElement(int i, int j, int value);
+
+
+    /**
+     * Get row number based on index.
+     *
+     * @param index
+     * @return matrix row number
+     */
+    private int getRow(int index) {
+        return index / m;
+    }
+
+    /**
+     * Get column number based on index.
+     *
+     * @param index
+     * @return matrix column number
+     */
+    private int getColumn(int index) {
+        return index % m;
+    }
+
+    /**
+     * Get element by row and column index.
+     *
+     * @param i
+     * @param j
+     * @return
+     */
+    public abstract int getElement(int i, int j);
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!getClass().isAssignableFrom(obj.getClass())) return false;
+        final Matrix other = (Matrix) obj;
+
+        if (this.n != other.n || this.m != other.m) return false;
+        for (int i = 0; i < n * m; i++) {
+            if (this.getElements()[i] != other.getElements()[i])
+                return false;
         }
-
+        return true;
     }
 
-    /**
-     * Matrix getter.
-     *
-     * @return copy of matrix
-     */
-    @Override
-    public int[][] getMatrix() {
-        return matrix.clone();
+    private void validateAddition(Matrix other) {
+        if (this.length != other.length ||
+                this.n != other.n ||
+                this.m != other.m) {
+            throw new IllegalArgumentException("Matrices of different dimensions cannot be added.");
+        }
     }
 
-    /**
-     * Get matrix elements.
-     *
-     * @return row first 1d array of matrix element
-     */
+    public final Matrix add(Matrix other) throws IllegalArgumentException {
+        validateAddition(other);
+        return this.addOther(other);
+    }
+
+    protected abstract Matrix addOther(Matrix other);
+
     @Override
-    public int[] getElements() {
-        int[] elements = new int[n * m];
-        int k = 0;
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                elements[k++] = matrix[i][j];
+                if (j == 0)
+                    sb.append(getElement(i, j));
+                else
+                    sb.append(" ").append(getElement(i, j));
+
+                if (j == m - 1)
+                    sb.append("\n");
             }
         }
-        return elements;
+        return sb.toString();
+
     }
-
-
-    @Override
-    void setElement(int i, int j, int value) {
-        matrix[i][j] = value;
-    }
-
-    @Override
-    public int getElement(int i, int j) {
-        return matrix[i][j];
-    }
-
-    @Override
-    protected AbstractMatrix addOther(AbstractMatrix other) {
-        int[] resultElements = new int[this.length];
-        for (int i = 0; i < this.length; i++) {
-           resultElements[i] = this.getElement(i) + other.getElement(i);
-        }
-        return new Matrix(this.n, this.m, resultElements);
-    }
-
-
 }
-
