@@ -31,6 +31,7 @@ public class InputStreamParser {
                 for (int i = 0; i < n * m; i++) {
                     elements[i] = scn.nextInt();
                 }
+                // Factory could be moved to constructor or to method parameter.
                 list.add(MatrixFactory.create(n, m, elements));
             }
         } catch (NoSuchElementException ignored) {}

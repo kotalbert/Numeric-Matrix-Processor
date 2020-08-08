@@ -1,5 +1,7 @@
 package processor;
 
+import java.util.Arrays;
+
 public abstract class Matrix {
     public final int n;
     public final int m;
@@ -122,7 +124,10 @@ public abstract class Matrix {
         return this.addOther(other);
     }
 
+
     protected abstract Matrix addOther(Matrix other);
+    protected abstract Matrix multiply(int scalar);
+
 
     @Override
     public String toString() {

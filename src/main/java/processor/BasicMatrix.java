@@ -85,6 +85,21 @@ public class BasicMatrix extends Matrix {
         return new BasicMatrix(this.n, this.m, resultElements);
     }
 
+    /**
+     * Multiplication by scalar.
+     *
+     * @param scalar
+     * @return
+     */
+    protected Matrix multiply(int scalar) {
+        // fixme: can it be abstracted?
+        int[] elements = getElements();
+        for (int i = 0; i < length; i++) {
+           elements[i] *= scalar;
+        }
+        return new BasicMatrix(n, m, elements);
+    }
+
 
 }
 
