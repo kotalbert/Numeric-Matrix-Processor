@@ -111,26 +111,35 @@ public abstract class AbstractMatrix {
 
     private void validateAddition(AbstractMatrix other) {
         if (this.length != other.length ||
-                        this.n != other.n ||
-                        this.m != other.m) {
+                this.n != other.n ||
+                this.m != other.m) {
             throw new IllegalArgumentException("Matrices of different dimensions cannot be added.");
         }
     }
 
-   public final AbstractMatrix add(AbstractMatrix other) {
+    public final AbstractMatrix add(AbstractMatrix other) throws IllegalArgumentException {
         validateAddition(other);
         return this.addOther(other);
-   }
+    }
 
     protected abstract AbstractMatrix addOther(AbstractMatrix other);
 
-/*
-    protected AbstractMatrix add(AbstractMatrix other) {
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
 
-       this.add(other);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (j == 0)
+                    sb.append(getElement(i, j));
+                else
+                    sb.append(" ").append(getElement(i, j));
+
+                if (j == m - 1)
+                    sb.append("\n");
+            }
+        }
+        return sb.toString();
+
     }
-*/
-
-//    public abstract AbstractMatrix add(AbstractMatrix other)  throws IllegalArgumentException;
-
 }
