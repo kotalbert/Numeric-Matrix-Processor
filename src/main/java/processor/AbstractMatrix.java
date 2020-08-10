@@ -43,27 +43,8 @@ public abstract class AbstractMatrix {
      * @return
      */
     public final int getElement(int index) {
-        return getElement(getRow(index), getColumn(index));
+        return getElement(getRowIndex(index), getColumnIndex(index));
     }
-
-    /**
-     * Set n-th element of matrix with value, row first indexed.
-     *
-     * @param index
-     * @param value
-     */
-    public final void setElement(int index, int value) {
-        setElement(getRow(index), getColumn(index), value);
-    }
-
-    /**
-     * Set ij-th element of Matrix with value.
-     *
-     * @param i
-     * @param j
-     * @param value
-     */
-    abstract void setElement(int i, int j, int value);
 
 
     /**
@@ -72,7 +53,7 @@ public abstract class AbstractMatrix {
      * @param index
      * @return matrix row number
      */
-    private int getRow(int index) {
+    private int getRowIndex(int index) {
         return index / m;
     }
 
@@ -80,9 +61,9 @@ public abstract class AbstractMatrix {
      * Get column number based on index.
      *
      * @param index
-     * @return matrix column number
+     * @return matrix column index
      */
-    private int getColumn(int index) {
+    private int getColumnIndex(int index) {
         return index % m;
     }
 

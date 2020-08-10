@@ -1,7 +1,5 @@
 package processor;
 
-import java.util.Arrays;
-
 public abstract class Matrix {
     public final int n;
     public final int m;
@@ -45,7 +43,7 @@ public abstract class Matrix {
      * @return
      */
     public final int getElement(int index) {
-        return getElement(getRow(index), getColumn(index));
+        return getElement(getRowIndex(index), getColumn(index));
     }
 
     /**
@@ -55,7 +53,7 @@ public abstract class Matrix {
      * @param value
      */
     public final void setElement(int index, int value) {
-        setElement(getRow(index), getColumn(index), value);
+        setElement(getRowIndex(index), getColumn(index), value);
     }
 
     /**
@@ -69,20 +67,20 @@ public abstract class Matrix {
 
 
     /**
-     * Get row number based on index.
+     * Get row i-index, based on element index.
      *
      * @param index
-     * @return matrix row number
+     * @return matrix row index
      */
-    private int getRow(int index) {
+    private int getRowIndex(int index) {
         return index / m;
     }
 
     /**
-     * Get column number based on index.
+     * Get column j-index based on element index.
      *
      * @param index
-     * @return matrix column number
+     * @return matrix column j-index
      */
     private int getColumn(int index) {
         return index % m;
