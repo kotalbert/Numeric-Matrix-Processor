@@ -2,6 +2,8 @@ package processor;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import processor.util.InputStreamParser;
 
 import java.io.File;
@@ -10,13 +12,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class BasicMatrixOperationsTest {
+public class MatrixOperationTest {
 
     @Test
-    @DisplayName("Matrix addition operation should give correct result.")
+    @DisplayName("Matrices addition  should give correct result and guard against dimensions mismatch.")
     public void addition() throws IOException {
         File leftFile = TestUtils.getFileFromResources("addition/mx11_input.txt");
         File rightFile = TestUtils.getFileFromResources("addition/mx12_input.txt");
@@ -59,6 +60,33 @@ public class BasicMatrixOperationsTest {
 
             assertEquals(expected, actual);
         }
+
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 4, 5})
+    @DisplayName("Matrices dot product should produce correct result and guard against dimensions mismatch")
+    public void dotProduct(int testId) throws IOException {
+
+        File testInputFile = TestUtils.getFileFromResources(testId, "dotproduct/test%d.txt");
+        List<Matrix> matrices = InputStreamParser.parse(new FileInputStream(testInputFile));
+
+        for (Matrix m : matrices)
+            assertNotNull(m);
+
+
+        Matrix left = matrices.get(0);
+        Matrix right = matrices.get(1);
+        Matrix expected = matrices.get(2);
+
+        Matrix actual = left.dotProduct(right);
+        assertEquals(expected, actual);
+
+
+        // todo: test if error is thrown
+//        assertThrows(IllegalArgumentException.class, () -> right.dotProduct(left));
+
 
 
     }

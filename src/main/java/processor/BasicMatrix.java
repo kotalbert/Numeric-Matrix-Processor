@@ -76,30 +76,5 @@ public class BasicMatrix extends Matrix {
         return matrix[i][j];
     }
 
-    @Override
-    protected Matrix addOther(Matrix other) {
-        int[] resultElements = new int[this.length];
-        for (int i = 0; i < this.length; i++) {
-           resultElements[i] = this.getElement(i) + other.getElement(i);
-        }
-        return new BasicMatrix(this.n, this.m, resultElements);
-    }
-
-    /**
-     * Multiplication by scalar.
-     *
-     * @param scalar
-     * @return
-     */
-    protected Matrix multiply(int scalar) {
-        // fixme: can it be abstracted?
-        int[] elements = getElements();
-        for (int i = 0; i < length; i++) {
-           elements[i] *= scalar;
-        }
-        return new BasicMatrix(n, m, elements);
-    }
-
-
 }
 

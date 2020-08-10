@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static processor.TestUtils.getFileFromResources;
 
 @DisplayName("Matrix Factory class test case")
-class BasicMatrixFactoryTest {
+class MatrixFactoryTest {
 
     private final int n;
     private final int m;
     private final int[] elements;
 
 
-    BasicMatrixFactoryTest() {
+    MatrixFactoryTest() {
 
         Random rand = new Random();
 

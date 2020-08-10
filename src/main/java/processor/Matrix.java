@@ -43,7 +43,7 @@ public abstract class Matrix {
      * @return
      */
     public final int getElement(int index) {
-        return getElement(getRowIndex(index), getColumn(index));
+        return getElement(getRowIndex(index), this.getColumnIndex(index));
     }
 
     /**
@@ -53,7 +53,7 @@ public abstract class Matrix {
      * @param value
      */
     public final void setElement(int index, int value) {
-        setElement(getRowIndex(index), getColumn(index), value);
+        setElement(getRowIndex(index), this.getColumnIndex(index), value);
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class Matrix {
      * @param index
      * @return matrix column j-index
      */
-    private int getColumn(int index) {
+    private int getColumnIndex(int index) {
         return index % m;
     }
 
@@ -119,12 +119,92 @@ public abstract class Matrix {
 
     public final Matrix add(Matrix other) throws IllegalArgumentException {
         validateAddition(other);
-        return this.addOther(other);
+        int[] elementSums = new int[this.length];
+        for (int i = 0; i < this.length; i++) {
+            elementSums[i] = this.getElement(i) + other.getElement(i);
+        }
+//        return new BasicMatrix(this.n, this.m, resultElements);
+        return MatrixFactory.create(n, m, elementSums);
+
+    }
+
+    /**
+     * Multiplication by scalar.
+     *
+     * @param scalar
+     * @return
+     */
+    public Matrix multiply(int scalar) {
+        int[] elements = getElements();
+        for (int i = 0; i < length; i++) {
+            elements[i] *= scalar;
+        }
+        return MatrixFactory.create(n, m, elements);
     }
 
 
-    protected abstract Matrix addOther(Matrix other);
-    protected abstract Matrix multiply(int scalar);
+    /**
+     * Get dot product of this (left) and the other matrix.
+     *
+     * @param other
+     * @return dot product
+     * @throws IllegalArgumentException if dimensions mismatch
+     */
+    public Matrix dotProduct(Matrix other) {
+        validateDotProductDimensions(other);
+        final int n = this.n;
+        final int k = other.m;
+
+        int[] elements = new int[n * k];
+
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < k; j++) {
+                Vector row = this.getRow(i);
+                Vector column = other.getColumn(j);
+                elements[other.getIndex(i, j)] = row.dotProduct(column);
+            }
+        }
+
+        return MatrixFactory.create(n, k, elements);
+
+    }
+
+    /**
+     * Get sequential index from this this matrix row and column i, j indices.
+     *
+     * @param i
+     * @param j
+     * @return
+     */
+    protected int getIndex(int i, int j) {
+
+        return i * this.m + j;
+    }
+
+
+    private void validateDotProductDimensions(Matrix other) {
+        if (this.m != other.n)
+            throw new IllegalArgumentException(
+                    String.format("Dimensions mismatch for dot product: %d != %d", this.m, other.n)
+            );
+    }
+
+    private Vector getRow(int i) {
+        int[] row = new int[m];
+        for (int j = 0; j < m; j++) {
+            row[j] = getElement(i, j);
+        }
+        return new BasicVector(row);
+    }
+
+    private Vector getColumn(int j) {
+        int[] column = new int[n];
+        for (int i = 0; i < n; i++) {
+            column[i] = getElement(i, j);
+        }
+        return new BasicVector(column);
+    }
 
 
     @Override
