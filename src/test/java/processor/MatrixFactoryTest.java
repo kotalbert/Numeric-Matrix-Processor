@@ -18,7 +18,7 @@ class MatrixFactoryTest {
 
     private final int n;
     private final int m;
-    private final int[] elements;
+    private final float[] elements;
     private final MatrixFactory matrixFactory = new BasicMatrixFactory();
 
 
@@ -29,7 +29,7 @@ class MatrixFactoryTest {
         // fixme: basic parameters for testing, can be moved to before type method
         this.n = 5;
         this.m = 5;
-        this.elements = new int[n * m];
+        this.elements = new float[n * m];
 
         // init with random integers
         for (int i = 0; i < n * n; i++) {

@@ -33,7 +33,7 @@ public abstract class MatrixFactory {
      * @param elements element array
      * @return matrix with elements put in row first order
      */
-    public  Matrix create(int n, int m, int[] elements) {
+    public  Matrix create(int n, int m, float[] elements) {
         return new BasicMatrix(n, m, elements);
     }
 
@@ -84,7 +84,7 @@ public abstract class MatrixFactory {
      * @param inputStream
      * @parame skipDimensions if true, first two ints in input stream are discarded.
      * @return matrix with n x m dimensions and elements read from input stream
-     * @throws IndexOutOfBoundsException when matrix size gt elements in file
+     * @throws IndexOutOfBoundsException when matrix size gt elements in fil
      */
     public  Matrix create(int n, int m, InputStream inputStream, boolean skipDimensions) {
         Scanner scanner = new Scanner(inputStream);
@@ -93,10 +93,10 @@ public abstract class MatrixFactory {
             scanner.nextInt();
         }
 
-        int[] elements = new int[n * m];
+        float[] elements = new float[n * m];
         for (int i = 0; i < n * m; i++) {
             try {
-                elements[i] = scanner.nextInt();
+                elements[i] = scanner.nextFloat();
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("Provided source has less elements value than matrix length: " + i);
             }

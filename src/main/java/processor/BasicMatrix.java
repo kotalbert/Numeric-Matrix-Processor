@@ -5,7 +5,7 @@ package processor;
  * Basic matrix implementation.
  */
 public class BasicMatrix extends Matrix {
-    private final int[][] matrix;
+    private final float[][] matrix;
 
     /**
      * New empty matrix.
@@ -15,7 +15,7 @@ public class BasicMatrix extends Matrix {
      */
     public BasicMatrix(int n, int m) {
         super(n, m);
-        this.matrix = new int[n][m];
+        this.matrix = new float[n][m];
     }
 
     /**
@@ -26,7 +26,7 @@ public class BasicMatrix extends Matrix {
      * @param elements array of elements to put in the matrix
      * @throws IllegalArgumentException when elements length lt matrix size
      */
-    public BasicMatrix(int n, int m, int[] elements) {
+    public BasicMatrix(int n, int m, float[] elements) {
         this(n, m);
         if (elements.length < n * m)
             throw new IllegalArgumentException(
@@ -44,7 +44,7 @@ public class BasicMatrix extends Matrix {
      * @return copy of matrix
      */
     @Override
-    public int[][] getMatrix() {
+    public float[][] getMatrix() {
         return matrix.clone();
     }
 
@@ -54,8 +54,8 @@ public class BasicMatrix extends Matrix {
      * @return row first 1d array of matrix element
      */
     @Override
-    public int[] getElements() {
-        int[] elements = new int[n * m];
+    public float[] getElements() {
+        float[] elements = new float[n * m];
         int k = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -67,12 +67,12 @@ public class BasicMatrix extends Matrix {
 
 
     @Override
-    void setElement(int i, int j, int value) {
+    void setElement(int i, int j, float value) {
         matrix[i][j] = value;
     }
 
     @Override
-    public int getElement(int i, int j) {
+    public float getElement(int i, int j) {
         return matrix[i][j];
     }
 

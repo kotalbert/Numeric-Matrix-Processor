@@ -29,7 +29,7 @@ public class InputStreamParser {
             while (true) {
                 int n = scn.nextInt();
                 int m = scn.nextInt();
-                int[] elements = new int[n * m];
+                float[] elements = new float[n * m];
                 for (int i = 0; i < n * m; i++) {
                     elements[i] = scn.nextInt();
                 }

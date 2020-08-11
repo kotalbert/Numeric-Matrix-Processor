@@ -6,7 +6,7 @@ package processor;
  */
 public abstract class Vector {
     public final int length;
-    private final int[] elements;
+    private final float[] elements;
 
     /**
      * Construct zero vector of given length.
@@ -15,7 +15,7 @@ public abstract class Vector {
      */
     public Vector(int length) {
         this.length = length;
-        this.elements = new int[length];
+        this.elements = new float[length];
 
     }
 
@@ -24,13 +24,13 @@ public abstract class Vector {
      *
      * @param elements
      */
-    public Vector(int[] elements) {
+    public Vector(float[] elements) {
         this(elements.length);
         if (length >= 0) System.arraycopy(elements, 0, this.elements, 0, length);
 
     }
 
-    public int getElement(int i) {
+    public float getElement(int i) {
         return elements[i];
     }
 
