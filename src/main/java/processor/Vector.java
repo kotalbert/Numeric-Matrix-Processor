@@ -6,7 +6,7 @@ package processor;
  */
 public abstract class Vector {
     public final int length;
-    private final float[] elements;
+    private final double[] elements;
 
     /**
      * Construct zero vector of given length.
@@ -15,7 +15,7 @@ public abstract class Vector {
      */
     public Vector(int length) {
         this.length = length;
-        this.elements = new float[length];
+        this.elements = new double[length];
 
     }
 
@@ -24,13 +24,13 @@ public abstract class Vector {
      *
      * @param elements
      */
-    public Vector(float[] elements) {
+    public Vector(double[] elements) {
         this(elements.length);
         if (length >= 0) System.arraycopy(elements, 0, this.elements, 0, length);
 
     }
 
-    public float getElement(int i) {
+    public double getElement(int i) {
         return elements[i];
     }
 
@@ -53,10 +53,10 @@ public abstract class Vector {
 
     }
 
-    public int dotProduct(Vector other) throws ArithmeticException {
+    public double dotProduct(Vector other) throws ArithmeticException {
         if (this.length != other.length)
             throw new ArithmeticException("Attempting dot product for diferent vectors length.");
-        int acumulator = 0;
+        double acumulator = 0;
         for (int i = 0; i < length; i++) {
            acumulator += this.getElement(i) * other.getElement(i);
         }

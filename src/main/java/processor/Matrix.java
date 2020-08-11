@@ -7,7 +7,7 @@ public abstract class Matrix {
 
     private final MatrixFactory matrixFactory;
 
-    protected Matrix(int n, int m)  {
+    protected Matrix(int n, int m) {
         validateDimensions(n, m);
         this.n = n;
         this.m = m;
@@ -30,14 +30,14 @@ public abstract class Matrix {
      *
      * @return
      */
-    public abstract float[][] getMatrix();
+    public abstract double[][] getMatrix();
 
     /**
      * Get elements as 1d array
      *
      * @return
      */
-    public abstract float[] getElements();
+    public abstract double[] getElements();
 
     /**
      * Get n-th element of matrix, row first indexed.
@@ -45,7 +45,7 @@ public abstract class Matrix {
      * @param index
      * @return
      */
-    public final float getElement(int index) {
+    public final double getElement(int index) {
         return getElement(getRowIndex(index), this.getColumnIndex(index));
     }
 
@@ -55,7 +55,7 @@ public abstract class Matrix {
      * @param index
      * @param value
      */
-    public final void setElement(int index, float value) {
+    public final void setElement(int index, double value) {
         setElement(getRowIndex(index), this.getColumnIndex(index), value);
     }
 
@@ -66,7 +66,7 @@ public abstract class Matrix {
      * @param j
      * @param value
      */
-    abstract void setElement(int i, int j, float value);
+    abstract void setElement(int i, int j, double value);
 
 
     /**
@@ -96,7 +96,7 @@ public abstract class Matrix {
      * @param j
      * @return
      */
-    public abstract float getElement(int i, int j);
+    public abstract double getElement(int i, int j);
 
     @Override
     public final boolean equals(Object obj) {
@@ -122,7 +122,7 @@ public abstract class Matrix {
 
     public final Matrix add(Matrix other) throws IllegalArgumentException {
         validateAddition(other);
-        float[] elementSums = new float[this.length];
+        double[] elementSums = new double[this.length];
         for (int i = 0; i < this.length; i++) {
             elementSums[i] = this.getElement(i) + other.getElement(i);
         }
@@ -138,7 +138,7 @@ public abstract class Matrix {
      * @return
      */
     public Matrix multiply(int scalar) {
-        float[] elements = getElements();
+        double[] elements = getElements();
         for (int i = 0; i < length; i++) {
             elements[i] *= scalar;
         }
@@ -158,7 +158,7 @@ public abstract class Matrix {
         final int n = this.n;
         final int k = other.m;
 
-        float[] elements = new float[n * k];
+        double[] elements = new double[n * k];
 
 
         for (int i = 0; i < n; i++) {
@@ -194,7 +194,7 @@ public abstract class Matrix {
     }
 
     private Vector getRow(int i) {
-        float[] row = new float[m];
+        double[] row = new double[m];
         for (int j = 0; j < m; j++) {
             row[j] = getElement(i, j);
         }
@@ -202,7 +202,7 @@ public abstract class Matrix {
     }
 
     private Vector getColumn(int j) {
-        float[] column = new float[n];
+        double[] column = new double[n];
         for (int i = 0; i < n; i++) {
             column[i] = getElement(i, j);
         }
@@ -216,10 +216,12 @@ public abstract class Matrix {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
+                double element = getElement(i, j);
+                String elementString = String.format("%.2f", element);
                 if (j == 0)
-                    sb.append(getElement(i, j));
+                    sb.append(elementString);
                 else
-                    sb.append(" ").append(getElement(i, j));
+                    sb.append(" ").append(elementString);
 
                 if (j == m - 1)
                     sb.append("\n");

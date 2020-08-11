@@ -89,7 +89,7 @@ public class ConsoleInterface {
         Matrix mx = readData("Enter matrix: ", dim[0], dim[1]);
         System.out.println("Enter scalar value:");
         int scalar = scanner.nextInt();
-        System.out.println("The scalar multiplication result is:");
+        System.out.println("The multiplication by number result is:");
         System.out.println(mx.multiply(scalar).toString());
         resetState();
     }
@@ -112,9 +112,9 @@ public class ConsoleInterface {
 
     private Matrix readData(String prompt, int n, int m) {
         System.out.println(prompt);
-        float[] elements = new float[n * m];
+        double[] elements = new double[n * m];
         for (int i = 0; i < elements.length; i++) {
-            elements[i] = scanner.nextFloat();
+            elements[i] = scanner.nextDouble();
         }
         return matrixFactory.create(n, m, elements);
 

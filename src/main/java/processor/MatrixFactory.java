@@ -33,7 +33,7 @@ public abstract class MatrixFactory {
      * @param elements element array
      * @return matrix with elements put in row first order
      */
-    public  Matrix create(int n, int m, float[] elements) {
+    public  Matrix create(int n, int m, double[] elements) {
         return new BasicMatrix(n, m, elements);
     }
 
@@ -93,10 +93,10 @@ public abstract class MatrixFactory {
             scanner.nextInt();
         }
 
-        float[] elements = new float[n * m];
+        double[] elements = new double[n * m];
         for (int i = 0; i < n * m; i++) {
             try {
-                elements[i] = scanner.nextFloat();
+                elements[i] = scanner.nextDouble();
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("Provided source has less elements value than matrix length: " + i);
             }

@@ -2,13 +2,13 @@ package processor;
 
 class BasicVector extends Vector {
 
-    public static final float EXPECTED = 41f;
+    public static final double EXPECTED = 41f;
 
     public BasicVector(int length) {
         super(length);
     }
 
-    public BasicVector(float[] elements) {
+    public BasicVector(double[] elements) {
         super(elements);
     }
 
@@ -17,7 +17,7 @@ class BasicVector extends Vector {
         Vector v1 = new BasicVector(10);
         System.out.println(v1);
 
-        float[] elements = {1, 2, 3, 4, 5, 6};
+        double[] elements = {1, 2, 3, 4, 5, 6};
         Vector v2 = new BasicVector(elements);
         System.out.println(v2);
 
