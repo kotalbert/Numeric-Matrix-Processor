@@ -19,6 +19,7 @@ class MatrixFactoryTest {
     private final int n;
     private final int m;
     private final int[] elements;
+    private final MatrixFactory matrixFactory = new BasicMatrixFactory();
 
 
     MatrixFactoryTest() {
@@ -40,7 +41,7 @@ class MatrixFactoryTest {
     @Test
     @DisplayName("Empty Matrix should be created for given dimensions.")
     void createEmpty() {
-        Matrix mx1 = MatrixFactory.create(n, m);
+        Matrix mx1 = matrixFactory.create(n, m);
         BasicMatrix mx2 = new BasicMatrix(n, m);
         assertEquals(mx1, mx2);
     }
@@ -48,7 +49,7 @@ class MatrixFactoryTest {
     @Test
     @DisplayName("Matrices should be initialized from dimensions and 1d vale array")
     void createFromArray() {
-        Matrix mx11 = MatrixFactory.create(n, m, elements);
+        Matrix mx11 = matrixFactory.create(n, m, elements);
         BasicMatrix mx12 = new BasicMatrix(n, m, elements);
         assertEquals(mx11, mx12);
     }
@@ -66,18 +67,18 @@ class MatrixFactoryTest {
         File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
         File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
 
-        Matrix mxIn = MatrixFactory.create(n, m, inputFile);
-        Matrix mxOut = MatrixFactory.create(n, m, outputFile);
+        Matrix mxIn = matrixFactory.create(n, m, inputFile);
+        Matrix mxOut = matrixFactory.create(n, m, outputFile);
 
         assertEquals(mxOut, mxIn);
 
         // test guard against dimension mismatch
-        assertThrows(IllegalArgumentException.class, () -> MatrixFactory.create(n + 1, m, inputFile));
-        assertThrows(IllegalArgumentException.class, () -> MatrixFactory.create(n, m + 1, inputFile));
-        assertThrows(IllegalArgumentException.class, () -> MatrixFactory.create(n + 1, m + 1, inputFile));
+        assertThrows(IllegalArgumentException.class, () -> matrixFactory.create(n + 1, m, inputFile));
+        assertThrows(IllegalArgumentException.class, () -> matrixFactory.create(n, m + 1, inputFile));
+        assertThrows(IllegalArgumentException.class, () -> matrixFactory.create(n + 1, m + 1, inputFile));
 
         // test if matrix is created using smaller matrix size
-        assertEquals((n - 1) * (m - 1), MatrixFactory.create(n - 1, m - 1, inputFile).length);
+        assertEquals((n - 1) * (m - 1), matrixFactory.create(n - 1, m - 1, inputFile).length);
 
     }
 
@@ -91,8 +92,8 @@ class MatrixFactoryTest {
         File inputFile = getFileFromResources(inputFileIndex, "creation/input_%d.txt");
         File outputFile = getFileFromResources(outputFileIndex, "creation/output_%d.txt");
 
-        Matrix mxIn = MatrixFactory.create(inputFile);
-        Matrix mxOut = MatrixFactory.create(n, m, outputFile);
+        Matrix mxIn = matrixFactory.create(inputFile);
+        Matrix mxOut = matrixFactory.create(n, m, outputFile);
 
         assertEquals(mxOut, mxIn);
 

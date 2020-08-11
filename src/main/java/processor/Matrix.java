@@ -5,11 +5,14 @@ public abstract class Matrix {
     public final int m;
     public final int length;
 
-    protected Matrix(int n, int m) {
+    private final MatrixFactory matrixFactory;
+
+    protected Matrix(int n, int m)  {
         validateDimensions(n, m);
         this.n = n;
         this.m = m;
         this.length = n * m;
+        matrixFactory = new BasicMatrixFactory();
     }
 
     /**
@@ -124,7 +127,7 @@ public abstract class Matrix {
             elementSums[i] = this.getElement(i) + other.getElement(i);
         }
 //        return new BasicMatrix(this.n, this.m, resultElements);
-        return MatrixFactory.create(n, m, elementSums);
+        return matrixFactory.create(n, m, elementSums);
 
     }
 
@@ -139,7 +142,7 @@ public abstract class Matrix {
         for (int i = 0; i < length; i++) {
             elements[i] *= scalar;
         }
-        return MatrixFactory.create(n, m, elements);
+        return matrixFactory.create(n, m, elements);
     }
 
 
@@ -166,7 +169,7 @@ public abstract class Matrix {
             }
         }
 
-        return MatrixFactory.create(n, k, elements);
+        return matrixFactory.create(n, k, elements);
 
     }
 

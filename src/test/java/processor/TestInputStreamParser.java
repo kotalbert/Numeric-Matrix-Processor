@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestInputStreamParser {
 
+    private final MatrixFactory matrixFactory = new BasicMatrixFactory();
+
     @Test
     @DisplayName("File input should be parsed to list of matrices.")
     public void parseFileInputStream() throws FileNotFoundException {
@@ -23,7 +25,7 @@ public class TestInputStreamParser {
        Matrix mx0 = matrices.get(0);
        Matrix mx1 = matrices.get(1);
 
-       Matrix expectedMatrix = MatrixFactory.create(mx0.n, mx0.m, new FileInputStream(outputFile));
+       Matrix expectedMatrix = matrixFactory.create(mx0.n, mx0.m, new FileInputStream(outputFile));
 
        assertEquals(mx0.add(mx1), expectedMatrix);
     }

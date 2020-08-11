@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MatrixOperationTest {
 
+    private final MatrixFactory matrixFactory = new BasicMatrixFactory();
+
     @Test
     @DisplayName("Matrices addition  should give correct result and guard against dimensions mismatch.")
     public void addition() throws IOException {
@@ -27,13 +29,13 @@ public class MatrixOperationTest {
         assertTrue(rightFile.exists());
         assertTrue(outputFile.exists());
 
-        Matrix mxLeft = MatrixFactory.create(leftFile);
-        Matrix mxRight = MatrixFactory.create(rightFile);
+        Matrix mxLeft = matrixFactory.create(leftFile);
+        Matrix mxRight = matrixFactory.create(rightFile);
 
         assertEquals(mxLeft.n, mxRight.n);
         assertEquals(mxLeft.m, mxRight.m);
 
-        Matrix mxExpected = MatrixFactory.create(mxRight.n, mxRight.m, outputFile);
+        Matrix mxExpected = matrixFactory.create(mxRight.n, mxRight.m, outputFile);
 
         assertEquals(mxRight.n, mxExpected.n);
         assertEquals(mxRight.m, mxExpected.m);

@@ -1,5 +1,6 @@
 package processor.util;
 
+import processor.BasicMatrixFactory;
 import processor.Matrix;
 import processor.MatrixFactory;
 
@@ -21,6 +22,7 @@ public class InputStreamParser {
      * @return
      */
     public static List<Matrix> parse(InputStream inputStream) {
+        MatrixFactory matrixFactory = new BasicMatrixFactory();
         List<Matrix> list = new ArrayList<>();
         Scanner scn = new Scanner(inputStream);
         try {
@@ -32,7 +34,7 @@ public class InputStreamParser {
                     elements[i] = scn.nextInt();
                 }
                 // Factory could be moved to constructor or to method parameter.
-                list.add(MatrixFactory.create(n, m, elements));
+                list.add(matrixFactory.create(n, m, elements));
             }
         } catch (NoSuchElementException ignored) {}
         return list;
