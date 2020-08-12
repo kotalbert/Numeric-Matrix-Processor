@@ -99,6 +99,9 @@ public class MatrixOperationTest {
     @DisplayName("Main diagonal transposition.")
     public void mainDiagonalTransposition() throws FileNotFoundException {
         List<Matrix> matrices = getTestMatrices("transposition/main_diagonal.txt");
+        Matrix actual = matrices.get(0).transpose();
+        Matrix expected = matrices.get(1);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -106,6 +109,9 @@ public class MatrixOperationTest {
     public void sideDiagonalTransposition() throws FileNotFoundException {
 
         List<Matrix> matrices = getTestMatrices("transposition/side_diagonal.txt");
+        Matrix actual = matrices.get(0).sideTranspose();
+        Matrix expected = matrices.get(1);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -113,6 +119,9 @@ public class MatrixOperationTest {
     public void HorizontalLineTransposition() throws FileNotFoundException {
 
         List<Matrix> matrices = getTestMatrices("transposition/horizontal_line.txt");
+        Matrix actual = matrices.get(0).horizontalTranspose();
+        Matrix expected = matrices.get(1);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -120,6 +129,9 @@ public class MatrixOperationTest {
     public void verticalLineTransposition() throws FileNotFoundException {
 
         List<Matrix> matrices = getTestMatrices("transposition/vertical_line.txt");
+        Matrix actual = matrices.get(0).verticalTranspose();
+        Matrix expected = matrices.get(1);
+        assertEquals(expected, actual);
     }
 
 

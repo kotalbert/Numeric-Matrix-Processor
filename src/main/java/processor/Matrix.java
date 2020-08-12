@@ -209,6 +209,30 @@ public abstract class Matrix {
         return new BasicVector(column);
     }
 
+     public Matrix transpose() {
+        Matrix transposed = matrixFactory.create(this.m, this.n);
+         for (int i = 0; i < this.n; i++) {
+             for (int j = 0; j < this.m; j++) {
+                 transposed.setElement(j, i, this.getElement(i, j));
+             }
+         }
+        return transposed;
+     }
+     public Matrix sideTranspose() {
+         Matrix transposed = matrixFactory.create(this.m, this.n);
+        return null;
+     }
+     public Matrix horizontalTranspose() {
+         Matrix transposed = matrixFactory.create(this.m, this.n);
+        return null;
+     }
+     public Matrix verticalTranspose() {
+         Matrix transposed = matrixFactory.create(this.m, this.n);
+        return null;
+     }
+
+
+
 
     @Override
     public String toString() {

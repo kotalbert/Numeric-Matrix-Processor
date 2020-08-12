@@ -9,7 +9,7 @@ class MatrixTest {
     @Test
     public void equals() {
         final int n = 3;
-        final float[] elements = new float[n * n];
+        final double[] elements = new double[n * n];
 
         for (int i = 0; i < n * n; i++) {
             elements[i] = i;
@@ -50,7 +50,7 @@ class MatrixTest {
     @Test
     public void getElementsOfZeroMatrix() {
         BasicMatrix mx = new BasicMatrix(3, 3);
-        for (float element : mx.getElements()) {
+        for (double element : mx.getElements()) {
             assertEquals(0, element);
         }
     }
@@ -87,9 +87,9 @@ class MatrixTest {
         final int n = 3;
         final int m = 3;
 
-        float[] arrOk = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+        double[] arrOk = {0, 1, 2, 3, 4, 5, 6, 7, 8};
         BasicMatrix mx = new BasicMatrix(n, m, arrOk);
-        float[][] rawMatrix = mx.getMatrix();
+        double[][] rawMatrix = mx.getMatrix();
         int k = 0;
 
         for (int i = 0; i < n; i++) {
@@ -98,7 +98,7 @@ class MatrixTest {
             }
         }
 
-        assertThrows(IllegalArgumentException.class, () -> new BasicMatrix(n, m, new float[n * m - 1]));
+        assertThrows(IllegalArgumentException.class, () -> new BasicMatrix(n, m, new double[n * m - 1]));
 
 
     }
