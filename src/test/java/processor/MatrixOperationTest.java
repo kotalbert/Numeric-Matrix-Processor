@@ -77,7 +77,6 @@ public class MatrixOperationTest {
         for (Matrix m : matrices)
             assertNotNull(m);
 
-
         Matrix left = matrices.get(0);
         Matrix right = matrices.get(1);
         Matrix expected = matrices.get(2);
@@ -89,8 +88,39 @@ public class MatrixOperationTest {
         // todo: test if error is thrown
 //        assertThrows(IllegalArgumentException.class, () -> right.dotProduct(left));
 
-
-
     }
+
+    private List<Matrix> getTestMatrices(String resourceName) throws FileNotFoundException {
+        File testInputFile = TestUtils.getFileFromResources(resourceName);
+        return InputStreamParser.parse(new FileInputStream(testInputFile));
+    }
+
+    @Test
+    @DisplayName("Main diagonal transposition.")
+    public void mainDiagonalTransposition() throws FileNotFoundException {
+        List<Matrix> matrices = getTestMatrices("transposition/main_diagonal.txt");
+    }
+
+    @Test
+    @DisplayName("Side diagonal transposition.")
+    public void sideDiagonalTransposition() throws FileNotFoundException {
+
+        List<Matrix> matrices = getTestMatrices("transposition/side_diagonal.txt");
+    }
+
+    @Test
+    @DisplayName("Horizontal line transposition.")
+    public void HorizontalLineTransposition() throws FileNotFoundException {
+
+        List<Matrix> matrices = getTestMatrices("transposition/horizontal_line.txt");
+    }
+
+    @Test
+    @DisplayName("Vertical  line transposition.")
+    public void verticalLineTransposition() throws FileNotFoundException {
+
+        List<Matrix> matrices = getTestMatrices("transposition/vertical_line.txt");
+    }
+
 
 }
