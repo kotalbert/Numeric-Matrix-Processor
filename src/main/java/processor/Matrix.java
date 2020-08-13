@@ -209,29 +209,50 @@ public abstract class Matrix {
         return new BasicVector(column);
     }
 
-     public Matrix transpose() {
-        Matrix transposed = matrixFactory.create(this.m, this.n);
-         for (int i = 0; i < this.n; i++) {
-             for (int j = 0; j < this.m; j++) {
-                 transposed.setElement(j, i, this.getElement(i, j));
-             }
-         }
-        return transposed;
-     }
-     public Matrix sideTranspose() {
-         Matrix transposed = matrixFactory.create(this.m, this.n);
-        return null;
-     }
-     public Matrix horizontalTranspose() {
-         Matrix transposed = matrixFactory.create(this.m, this.n);
-        return null;
-     }
-     public Matrix verticalTranspose() {
-         Matrix transposed = matrixFactory.create(this.m, this.n);
-        return null;
-     }
+    public Matrix transpose() {
+        Matrix t = matrixFactory.create(this.m, this.n);
+        for (int i = 0; i < t.n; i++) {
+            for (int j = 0; j < t.m; j++) {
+                t.setElement(j, i, this.getElement(i, j));
+            }
+        }
+        return t;
+    }
 
+    public Matrix reflectSideDiagonal() {
+        // https://stackoverflow.com/a/5916919
+        Matrix t = matrixFactory.create(this.n, this.m);
+        for (int i = 0; i < t.n; i++) {
+            for (int j = 0; j < t.m; j++) {
+                t.setElement(i, j, this.getElement(t.n - 1 - j, t.m - 1 - i));
+                t.setElement(t.n - 1 - j, t.m - 1 - i, this.getElement(i, j));
+            }
+        }
+        return t;
+    }
 
+    public Matrix reflectVertical() {
+
+        Matrix t = matrixFactory.create(this.n, this.m);
+
+        for (int i = 0; i < t.n; i++) {
+            for (int j = 0; j < t.m; j++) {
+                t.setElement(i, j, this.getElement(i, this.m - 1 - j));
+            }
+        }
+        return t;
+    }
+
+    public Matrix reflectHorizontal() {
+        Matrix t = matrixFactory.create(this.n, this.m);
+
+        for (int i = 0; i < t.n; i++) {
+            for (int j = 0; j < t.m; j++) {
+                t.setElement(i, j, this.getElement(this.n - 1 - i,  j));
+            }
+        }
+        return t;
+    }
 
 
     @Override
