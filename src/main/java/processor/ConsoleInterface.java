@@ -10,11 +10,17 @@ public class ConsoleInterface {
         ADD,
         SCALE,
         MULTIPLY,
+        REFLECT,
         EXIT
+    }
+
+    private enum Reflection {
+        DIAGONAL, SIDE, VERTICAL, HORIZONTAL
     }
 
     private final MatrixFactory matrixFactory;
     private Operation currentOperation;
+    private Reflection currentReflection;
     private final Scanner scanner;
 
     ConsoleInterface() {
@@ -33,6 +39,9 @@ public class ConsoleInterface {
                 break;
             case 3:
                 currentOperation = Operation.MULTIPLY;
+                break;
+            case 4:
+                currentOperation = Operation.REFLECT;
                 break;
             case 0:
                 currentOperation = Operation.EXIT;
@@ -58,6 +67,9 @@ public class ConsoleInterface {
             case MULTIPLY:
                 doMultiply();
                 break;
+            case REFLECT:
+                doReflect();
+                break;
             default:
                 throw new AssertionError("unknown operation");
         }
@@ -65,6 +77,64 @@ public class ConsoleInterface {
 
     private void resetState() {
         showMainMenu();
+    }
+
+    private void doReflect() {
+        chooseReflectionMethod();
+
+        int[] dim = readDimensions("Enter matrix size: ");
+        Matrix matrix = readData("Enter matrix:", dim[0], dim[1]);
+        Matrix reflected;
+
+        switch (currentReflection) {
+            case DIAGONAL:
+                reflected = matrix.transpose();
+                break;
+            case SIDE:
+                reflected = matrix.reflectSideDiagonal();
+                break;
+            case VERTICAL:
+                reflected = matrix.reflectVertical();
+                break;
+            case HORIZONTAL:
+                reflected = matrix.reflectHorizontal();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + currentReflection);
+        }
+
+        System.out.println("The result is:");
+        System.out.println(reflected);
+        resetState();
+
+    }
+
+    private void showReflectionOptions() {
+        System.out.println("1. Main diagonal\n" +
+                "2. Side diagonal\n" +
+                "3. Vertical line\n" +
+                "4. Horizontal line");
+    }
+
+    private void chooseReflectionMethod() {
+        showReflectionOptions();
+        switch (scanner.nextInt()) {
+            case 1:
+                currentReflection = Reflection.DIAGONAL;
+                break;
+            case 2:
+                currentReflection = Reflection.SIDE;
+                break;
+            case 3:
+                currentReflection = Reflection.VERTICAL;
+                break;
+            case 4:
+                currentReflection = Reflection.HORIZONTAL;
+            default:
+                throw new AssertionError("unknown reflection");
+        }
+
+
     }
 
     private Matrix[] readTwoMatrices() {
@@ -131,6 +201,7 @@ public class ConsoleInterface {
         System.out.println("1. Add matrices\n" +
                 "2. Multiply matrix to a constant\n" +
                 "3. Multiply matrices\n" +
+                "4. Transpose matrix\n" +
                 "0. Exit");
     }
 
