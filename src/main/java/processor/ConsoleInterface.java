@@ -130,6 +130,7 @@ public class ConsoleInterface {
                 break;
             case 4:
                 currentReflection = Reflection.HORIZONTAL;
+                break;
             default:
                 throw new AssertionError("unknown reflection");
         }
