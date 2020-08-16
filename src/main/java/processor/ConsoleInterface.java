@@ -11,6 +11,7 @@ public class ConsoleInterface {
         SCALE,
         MULTIPLY,
         REFLECT,
+        DETERMINE,
         EXIT
     }
 
@@ -43,6 +44,9 @@ public class ConsoleInterface {
             case 4:
                 currentOperation = Operation.REFLECT;
                 break;
+            case 5:
+                currentOperation = Operation.DETERMINE;
+                break;
             case 0:
                 currentOperation = Operation.EXIT;
                 break;
@@ -70,6 +74,9 @@ public class ConsoleInterface {
             case REFLECT:
                 doReflect();
                 break;
+            case DETERMINE:
+                doDetermine();
+                break;
             default:
                 throw new AssertionError("unknown operation");
         }
@@ -77,6 +84,15 @@ public class ConsoleInterface {
 
     private void resetState() {
         showMainMenu();
+    }
+
+    private void doDetermine() {
+        int[] dim = readDimensions("Enter matrix size: ");
+        Matrix matrix = readData("Enter matrix:", dim[0], dim[1]);
+        double det = matrix.getDeterminant();
+        System.out.println("The result is:");
+        System.out.println(det);
+        resetState();
     }
 
     private void doReflect() {
@@ -203,6 +219,7 @@ public class ConsoleInterface {
                 "2. Multiply matrix to a constant\n" +
                 "3. Multiply matrices\n" +
                 "4. Transpose matrix\n" +
+                "5. Calculate a determinant\n" +
                 "0. Exit");
     }
 
