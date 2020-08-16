@@ -31,7 +31,7 @@ public class InputStreamParser {
                 int m = scn.nextInt();
                 double[] elements = new double[n * m];
                 for (int i = 0; i < n * m; i++) {
-                    elements[i] = scn.nextInt();
+                    elements[i] = scn.nextDouble();
                 }
                 // Factory could be moved to constructor or to method parameter.
                 list.add(matrixFactory.create(n, m, elements));

@@ -301,7 +301,7 @@ public abstract class Matrix {
             for (int i = 0; i < n; i++) {
                minors[i] = getElement(0,i) * removeRowColumn(0, i).getDeterminant();
             }
-            long determinant = 0;
+            double determinant = 0;
             for (int i = 0; i < n; i++) {
                 determinant += Math.pow(-1, i) * minors[i];
             }

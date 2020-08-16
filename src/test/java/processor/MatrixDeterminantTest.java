@@ -2,9 +2,12 @@ package processor;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
+import processor.util.InputStreamParser;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,4 +60,22 @@ public class MatrixDeterminantTest {
 
     }
 
+    @Test
+    @DisplayName("Determinant of higher dimensions should be calculated corectly")
+    public void determinantFromFiles() throws FileNotFoundException {
+
+        File fileFromResources = TestUtils.getFileFromResources("determinant/determinants.txt");
+        List<Matrix> mxs = InputStreamParser.parse(new FileInputStream(fileFromResources));
+        Matrix mx0 = mxs.get(0);
+        assertEquals(191L, mx0.getDeterminant());
+
+        Matrix mx1 = mxs.get(1);
+        double det = mx1.getDeterminant();
+        double scale = Math.pow(10, 4);
+        assertEquals(45.2197, Math.round(det * scale) / scale);
+
+
+
+
+    }
 }
