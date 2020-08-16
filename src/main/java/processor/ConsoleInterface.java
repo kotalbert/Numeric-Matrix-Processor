@@ -12,6 +12,7 @@ public class ConsoleInterface {
         MULTIPLY,
         REFLECT,
         DETERMINE,
+        INVERSE,
         EXIT
     }
 
@@ -47,6 +48,9 @@ public class ConsoleInterface {
             case 5:
                 currentOperation = Operation.DETERMINE;
                 break;
+            case 6:
+                currentOperation = Operation.INVERSE;
+                break;
             case 0:
                 currentOperation = Operation.EXIT;
                 break;
@@ -77,6 +81,9 @@ public class ConsoleInterface {
             case DETERMINE:
                 doDetermine();
                 break;
+            case INVERSE:
+                doInverse();
+                break;
             default:
                 throw new AssertionError("unknown operation");
         }
@@ -84,6 +91,15 @@ public class ConsoleInterface {
 
     private void resetState() {
         showMainMenu();
+    }
+
+    private void doInverse() {
+        int[] dim = readDimensions("Enter matrix size: ");
+        Matrix matrix = readData("Enter matrix:", dim[0], dim[1]);
+        Matrix inverse = matrix.getInverse();
+        System.out.println("The result is:");
+        System.out.println(inverse);
+        resetState();
     }
 
     private void doDetermine() {
@@ -220,6 +236,7 @@ public class ConsoleInterface {
                 "3. Multiply matrices\n" +
                 "4. Transpose matrix\n" +
                 "5. Calculate a determinant\n" +
+                "6. Inverse matrix\n" +
                 "0. Exit");
     }
 
