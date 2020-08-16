@@ -137,7 +137,7 @@ public abstract class Matrix {
      * @param scalar
      * @return
      */
-    public Matrix multiply(int scalar) {
+    public Matrix multiply(double scalar) {
         double[] elements = getElements();
         for (int i = 0; i < length; i++) {
             elements[i] *= scalar;
@@ -310,6 +310,28 @@ public abstract class Matrix {
 
     }
 
+    public Matrix getInverse() {
+        checkIsSquare();
+        Matrix ct = getCofactorMatrix().transpose();
+        return ct.multiply(1/this.getDeterminant());
+    }
+
+    private double getCofactor(int i, int j) {
+        return Math.pow(-1, i + j) * removeRowColumn(i, j).getDeterminant();
+    }
+
+    private Matrix getCofactorMatrix() {
+        double[] elements = new double[n * n];
+        int c = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                elements[c++] = getCofactor(i, j);
+            }
+        }
+        return matrixFactory.create(n, n, elements);
+    }
+
+
 
     @Override
     public String toString() {
@@ -322,7 +344,7 @@ public abstract class Matrix {
                 if (j == 0)
                     sb.append(elementString);
                 else
-                    sb.append(" ").append(elementString);
+                    sb.append("\t").append(elementString);
 
                 if (j == m - 1)
                     sb.append("\n");

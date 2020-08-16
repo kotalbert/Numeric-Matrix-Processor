@@ -2,14 +2,14 @@ package processor;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import processor.util.InputStreamParser;
+import static org.junit.jupiter.api.Assertions.*;
 
+import processor.util.InputStreamParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class MatrixDeterminantTest {
 
