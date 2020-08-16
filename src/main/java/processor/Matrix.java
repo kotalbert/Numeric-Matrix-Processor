@@ -262,7 +262,7 @@ public abstract class Matrix {
      * @return
      */
     public Matrix removeRowColumn(int i, int j) {
-        validateMinorDimensions(i, j);
+        checkIfRemovedInMatrix(i, j);
         double[] elements = new double[length - n - m + 1];
         int c = 0;
         for (int k = 0; k < n; k++) {
@@ -275,11 +275,31 @@ public abstract class Matrix {
 
     }
 
-    private void validateMinorDimensions(int i, int j) {
+    private void checkIfRemovedInMatrix(int i, int j) {
         if (i > this.n || j > this.m)
-            throw new IllegalArgumentException("Illegal minor matrix parameters");
+            throw new IllegalArgumentException("Cannot remove row or column outside of matrix.");
     }
 
+    private void checkIsSquare() {
+        if (n != m)
+            throw new IllegalStateException("Operation possible only on square matrix.");
+    }
+
+
+    /**
+     * Get determinant of Matrix.
+     */
+    public double getDeterminant() {
+        checkIsSquare();
+        if (n == 2) {
+            return getElement(0, 0) * getElement(1, 1)
+                    - getElement(1, 0) * getElement(0, 1);
+        }
+        else {
+            return -1;
+        }
+
+    }
 
 
     @Override

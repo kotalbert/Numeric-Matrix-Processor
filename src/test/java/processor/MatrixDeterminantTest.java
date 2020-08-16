@@ -2,6 +2,10 @@ package processor;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MatrixDeterminantTest {
@@ -23,7 +27,17 @@ public class MatrixDeterminantTest {
 
         assertEquals(expected01, actual01);
 
+    }
+    @Test
+    @DisplayName("Determinant of 2x2 matrix should be calculated correctly.")
+    public void TwoByTwoDeterminant() {
+        Matrix mx = factory.create(2, 2, new double[] {3, 8, 4, 6});
+        double det = -14d;
+        assertEquals(det, mx.getDeterminant());
 
+        mx = factory.create(2, 2, new double[] {4, 7, 2, 9});
+        det = 22;
+        assertEquals(det, mx.getDeterminant());
 
     }
 
