@@ -254,6 +254,33 @@ public abstract class Matrix {
         return t;
     }
 
+    /**
+     * Return new Matrix, after removing i-th row and j-th column.
+     *
+     * @param i
+     * @param j
+     * @return
+     */
+    public Matrix removeRowColumn(int i, int j) {
+        validateMinorDimensions(i, j);
+        double[] elements = new double[length - n - m + 1];
+        int c = 0;
+        for (int k = 0; k < n; k++) {
+            for (int l = 0; l < m; l++) {
+                if (k != i && l != j)
+                    elements[c++] = getElement(k, l);
+            }
+        }
+       return matrixFactory.create(n -1, m - 1, elements);
+
+    }
+
+    private void validateMinorDimensions(int i, int j) {
+        if (i > this.n || j > this.m)
+            throw new IllegalArgumentException("Illegal minor matrix parameters");
+    }
+
+
 
     @Override
     public String toString() {
