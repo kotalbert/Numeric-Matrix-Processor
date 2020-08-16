@@ -38,6 +38,22 @@ public class MatrixDeterminantTest {
         mx = factory.create(2, 2, new double[] {4, 7, 2, 9});
         det = 22;
         assertEquals(det, mx.getDeterminant());
+    }
+
+    @Test
+    @DisplayName("Determinant 3x3 matrix should be calculated correctly.")
+    public void ThreeByThreeDeterminant() {
+        Matrix mx = factory.create(3, 3, new double[]
+                {-3, 9, 5, -4, 0, 1, 6, 3, 0});
+        double expected = 3;
+        double actual = mx.getDeterminant();
+        assertEquals(expected, actual);
+
+        mx = factory.create(3, 3, new double[]
+                {2, -5, 3, 0, 7, -2, -1, 4, 1});
+        expected = 41;
+        actual = mx.getDeterminant();
+        assertEquals(expected, actual);
 
     }
 
